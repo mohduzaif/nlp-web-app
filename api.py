@@ -1,6 +1,7 @@
 
 import textrazor
 from textblob import TextBlob
+import detectlanguage
 
 # this function map the entity to more readable words.
 def get_entity_type(freebase_types):
@@ -38,7 +39,7 @@ def name_entity_rec_api(ner_text):
 
     return response
 
-
+# this functioon is responsible for sentiment analysis API.
 def sentiment_analysis_api(user_text):
     
     result = {}
@@ -49,3 +50,13 @@ def sentiment_analysis_api(user_text):
     return result
     # print(f"Text: {t}")
     # print(f"  Polarity: {blob.sentiment.polarity:.2f}, Subjectivity: {blob.sentiment.subjectivity:.2f}")
+
+
+def language_detection_api(user_text):
+
+    detectlanguage.configuration.api_key = "a9c74fc706487696f5c47ea77be2d095"
+    # Enable secure mode (SSL) if you are passing sensitive data
+    # detectlanguage.configuration.secure = True
+
+    result = detectlanguage.detect(user_text)
+    return result

@@ -85,6 +85,24 @@ def perform_sentiment_analysis():
         return render_template('sentiment_analysis.html', response = response)
     else:
         return render_template('sentiment_analysis.html')
+    
+@app.route('/language_detection')
+def language_detection():
+    return render_template('language_detection.html')
+
+@app.route('/detect_language', methods = ['post'])
+def detect_language():
+    user_text = request.form.get('user_text')
+    response = api.language_detection_api(user_text)
+    
+    result_dict = {}
+    result_dict['Language'] = response[0]['language']
+    result_dict['Confidence'] = response[0]['confidence']
+
+    if response:
+        return render_template('language_detection.html', response = result_dict)
+    else:
+        return render_template('language_detection.html')
 
 
 app.run(debug=True)
