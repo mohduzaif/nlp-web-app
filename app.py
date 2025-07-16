@@ -39,18 +39,24 @@ def perform_login():
 
     response = database_object.search_user(email, password)
     if response:
+        session['logged_in'] = 1
         return redirect('/home_page')
     else:
         return render_template('login.html', wrong_msg = "Wrong Credentials, Email/Password")
 
 @app.route('/home_page')
 def home_page():
-    return render_template('home.html')
+    if session:
+        return render_template('home.html')
+    else:
+        return render_template('login.html')
 
 @app.route('/ner')
 def ner():
-    return render_template('ner.html')
-    
+    if session:
+        return render_template('ner.html')
+    else:
+        return render_template('login.html')
 
 @app.route('/perform_ner', methods = ['post'])
 def perform_ner():
@@ -75,7 +81,11 @@ def perform_ner():
 
 @app.route('/sentiment_analysis')
 def sentiment_analysis():
-    return render_template('sentiment_analysis.html')
+    if session:
+        return render_template('sentiment_analysis.html')
+    else:
+        return render_template('login.html')
+
 
 @app.route('/perform_sentiment_analysis', methods = ['post'])
 def perform_sentiment_analysis():
@@ -88,7 +98,10 @@ def perform_sentiment_analysis():
     
 @app.route('/language_detection')
 def language_detection():
-    return render_template('language_detection.html')
+    if session:
+        return render_template('language_detection.html')
+    else:
+        return render_template('login.html')
 
 @app.route('/detect_language', methods = ['post'])
 def detect_language():
@@ -104,5 +117,12 @@ def detect_language():
     else:
         return render_template('language_detection.html')
 
-
+@app.route('/back_home')
+def back_to_home():
+    if session:
+        return redirect('/home_page')
+    else:
+        return render_template('login.html')
+    
+    
 app.run(debug=True)
