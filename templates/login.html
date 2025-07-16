@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <title>NLPApp - login</title>
+</head>
+<body>
+    <div class="container">
+        <div class="login center-div">
+            <h1>NLPApp</h1>
+            <h3>Login Here</h3>
+
+            <!-- It is a jinja template to write the python in Html -->
+            {% if message %}
+                <p style="color: green;">{{message}}</p>
+            {% endif %}
+
+            {% if wrong_msg %}
+                <p style="color: red;">{{wrong_msg}}</p>
+            {% endif %}
+            
+            <form action="/perform_login" method="post">
+                <label>Email</label> <br>
+                <input type="email" name="user_email"> <br>
+                <label>Password</label> <br>
+                <input type="password" name="user_password"> <br> <br>
+                <input type="submit" value="Login">
+            </form>
+
+            <p>Not a Member? <a href="/register">Register Now</a></p>
+        </div>
+    </div>
+</body>
+</html>

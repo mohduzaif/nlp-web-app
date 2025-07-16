@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <title>Sentiment Analysis</title>
+</head>
+<body>
+    <div class="container">
+        <div class="login center-div">
+            <h2>***Sentiment Analysis***</h2>
+            <form action="/perform_sentiment_analysis", method="post">
+                <label for="">Enter the Text</label> <br>
+                <textarea style="width: 250px; height: 150px;" name="user_text"></textarea> <br>
+                <input type="submit", value="Perform Sentiment Analysis">
+            </form>
+
+            {% if response %}
+                <h3>{{response}}</h3> 
+            {% endif %}
+        </div>
+    </div>
+</body>
+</html>
